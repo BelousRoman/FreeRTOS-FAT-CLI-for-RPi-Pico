@@ -1,18 +1,26 @@
-add_library(FreeRTOS+FAT+CLI INTERFACE)
-target_sources(FreeRTOS+FAT+CLI INTERFACE
-        ../Lab-Project-FreeRTOS-FAT/ff_crc.c
-        ../Lab-Project-FreeRTOS-FAT/ff_dir.c
-        ../Lab-Project-FreeRTOS-FAT/ff_error.c
-        ../Lab-Project-FreeRTOS-FAT/ff_fat.c
-        ../Lab-Project-FreeRTOS-FAT/ff_file.c
-        ../Lab-Project-FreeRTOS-FAT/ff_format.c
-        ../Lab-Project-FreeRTOS-FAT/ff_ioman.c
-        ../Lab-Project-FreeRTOS-FAT/ff_locking.c
-        ../Lab-Project-FreeRTOS-FAT/ff_memory.c
-        ../Lab-Project-FreeRTOS-FAT/ff_stdio.c
-        ../Lab-Project-FreeRTOS-FAT/ff_string.c
-        ../Lab-Project-FreeRTOS-FAT/ff_sys.c
-        ../Lab-Project-FreeRTOS-FAT/ff_time.c 
+if (NOT DEFINED FREERTOS_FAT_LIB)
+        set(FREERTOS_FAT_LIB FreeRTOS+FAT+CLI)
+endif()
+
+if (NOT DEFINED FREERTOS_FAT_PATH)
+        set(FREERTOS_FAT_PATH "../Lab-Project-FreeRTOS-FAT")
+endif()
+
+add_library(${FREERTOS_FAT_LIB} INTERFACE)
+target_sources(${FREERTOS_FAT_LIB} INTERFACE
+        ${FREERTOS_FAT_PATH}/ff_crc.c
+        ${FREERTOS_FAT_PATH}/ff_dir.c
+        ${FREERTOS_FAT_PATH}/ff_error.c
+        ${FREERTOS_FAT_PATH}/ff_fat.c
+        ${FREERTOS_FAT_PATH}/ff_file.c
+        ${FREERTOS_FAT_PATH}/ff_format.c
+        ${FREERTOS_FAT_PATH}/ff_ioman.c
+        ${FREERTOS_FAT_PATH}/ff_locking.c
+        ${FREERTOS_FAT_PATH}/ff_memory.c
+        ${FREERTOS_FAT_PATH}/ff_stdio.c
+        ${FREERTOS_FAT_PATH}/ff_string.c
+        ${FREERTOS_FAT_PATH}/ff_sys.c
+        ${FREERTOS_FAT_PATH}/ff_time.c 
         portable/RP2040/dma_interrupts.c
         portable/RP2040/ff_sddisk.c
         portable/RP2040/sd_card.c
@@ -32,10 +40,10 @@ target_sources(FreeRTOS+FAT+CLI INTERFACE
         src/sd_timeouts.c
         src/util.c
 )
-target_link_libraries(FreeRTOS+FAT+CLI INTERFACE
+target_link_libraries(${FREERTOS_FAT_LIB} INTERFACE
         cmsis_core
-        FreeRTOS-Kernel
-        FreeRTOS-Kernel-Heap4
+        #FreeRTOS-Kernel
+        #FreeRTOS-Kernel-Heap4
         hardware_adc
         hardware_clocks
         hardware_dma
@@ -48,8 +56,8 @@ target_link_libraries(FreeRTOS+FAT+CLI INTERFACE
         pico_stdlib
         pico_sync
 )
-target_include_directories(FreeRTOS+FAT+CLI INTERFACE 
+target_include_directories(${FREERTOS_FAT_LIB} INTERFACE 
         include/ 
-        ../Lab-Project-FreeRTOS-FAT/include/
+        ${FREERTOS_FAT_PATH}/include/
         portable/RP2040/
 )

@@ -81,7 +81,7 @@ time_t time(time_t *pxTime) {
 }
 
 static TimerHandle_t TimeUpdateTimer;
-static void TimeUpdateTimerCallback(TimerHandle_t) { update_epochtime(); }
+static void TimeUpdateTimerCallback(TimerHandle_t timer) { update_epochtime(); }
 
 /**
  * @brief Initialize the FreeRTOS_time system
